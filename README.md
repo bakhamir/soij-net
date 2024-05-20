@@ -1,2 +1,3 @@
 # soij-net
-The dating app i am making for the php project
+## The dating app i am making for the php project
+### heavily WIP 
