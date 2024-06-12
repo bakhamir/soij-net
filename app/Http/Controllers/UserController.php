@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+
 
 class UserController extends Controller
 {
@@ -22,9 +24,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(UserRequest $request)
     {
-        $user = User::create($request->all());
+        $user = User::create([
+            'email' => $request->input('email'),
+            'userName' => $request->input('userName'),
+            'password' => Hash::make($request->input('password')),
+            'phoneNum' => $request->input('phoneNum'),
+            'profileId' => $request->input('profileId'),
+            'subPlanId' => $request->input('subPlanId'),
+            'sex' => $request->input('sex'),
+            'age' => $request->input('age')
+        ]);
+        
+       
         return response()->json($user,201);
     }
 

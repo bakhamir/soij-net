@@ -14,40 +14,43 @@ class LoginController extends Controller
         return $this->authenticate($request);
     }
     
-    public function connexion(Request $request)
-    {
-        if ($request->isMethod('post')) {
+    // public function log(Request $request)
+    // {
+    //     if ($request->isMethod('post')) {
          
-          $email =$request->input('email');
-          $password = $request->input('password');
+    //       $email =$request('email');
+    //       $password = $request('password');
              
-         if (Auth::attempt(['email' => $email, 'password' =>$password])) { 
-             dd("Ok");
-           }
-            else {
-              dd("No");
-             }
+    //      if (Auth::attempt(['email' => $email, 'password' =>$password])) { 
+    //          dd("Ok");
+    //        }
+    //         else {
+    //           dd("No");
+    //          }
 
-        } elseif ($request->isMethod('get')) {
-            return redirect()->intended('dashboard');     
-           }
-    }
+    //     } elseif ($request->isMethod('get')) {
+    //         return redirect()->intended('dashboard');     
+    //        }
+    // }
 
     public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
             'email' => ['required'],
             'password' => ['required'],
+            
         ]);
- 
         if (Auth::attempt($credentials)) {
+            dd($credentials);
             $request->session()->regenerate();
- 
             return redirect()->intended('dashboard');
         }
- 
+        dd("errr");
+
         return back()->withErrors([
+            
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
+
     }
 }
