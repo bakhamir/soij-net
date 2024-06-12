@@ -9,6 +9,30 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function login(Request $request): RedirectResponse
+    {
+        return $this->authenticate($request);
+    }
+    
+    public function connexion(Request $request)
+    {
+        if ($request->isMethod('post')) {
+         
+          $email =$request->input('email');
+          $password = $request->input('password');
+             
+         if (Auth::attempt(['email' => $email, 'password' =>$password])) { 
+             dd("Ok");
+           }
+            else {
+              dd("No");
+             }
+
+        } elseif ($request->isMethod('get')) {
+            return redirect()->intended('dashboard');     
+           }
+    }
+
     public function authenticate(Request $request): RedirectResponse
     {
         $credentials = $request->validate([
@@ -17,7 +41,6 @@ class LoginController extends Controller
         ]);
  
         if (Auth::attempt($credentials)) {
-            dd("ssss");
             $request->session()->regenerate();
  
             return redirect()->intended('dashboard');
