@@ -1,9 +1,11 @@
 <?php
-
+use App\Http\Controllers\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PreferenceController;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,6 +24,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/Register',[UserController::class,'create']);
     Route::post('/Login',[LoginController::class,'login']);
 });
+Route::post('/LikeUser',[LikeController::class,'LikeUser']);
+
+Route::post('/preference',[PreferenceController::class,'create']);
+Route::get('/preference/{id}',[PreferenceCpntroller::class,'read']);
+Route::post('preferenceUpd/{id}',[PreferenceController::class,'update']);
+Route::post('preferenceDel/{id}',[PreferenceController::class,'delete']);
+
+Route::post('/profile',[ProfileController::class,'create']);
+Route::get('/profile/{id}',[ProfileController::class,'read']);
+Route::post('profileUpd/{id}',[ProfileController::class,'update']);
+Route::post('profileDel/{id}',[ProfileController::class,'delete']);
 
 // Route::post('/Loginn',[LoginController::class,'log']);
 

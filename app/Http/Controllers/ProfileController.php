@@ -7,63 +7,26 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-        //
-    }
+    public function create(Request $request){
 
-    public function index()
-    {
-        //
+        $profile = Profile::create($request->all());
+        return response()->json($profile,201);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function read(int $id)
     {
-        //
+        $profile = Profile::find($id);
+        return response()->json($profile,200);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profile $profile)
+    public function update(Request $request,int $id)
     {
-        //
+        $profile = Profile::find($id);
+        $profile->update($request->all());
+        return response()->json($profile,201);
     }
+    public function delete(int $id){    
+     $profile = Profile::find($id);
+     $profile->delete();
+     return response()->json($profile,201);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Profile $profile)
-    {
-        //
     }
 }

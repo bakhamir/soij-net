@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Preference extends Model
 {
     protected $table = 'preferences';
+    protected $guarded = [];
 }
