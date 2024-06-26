@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('prf_selector', function (Blueprint $table) {
+        Schema::create('user_token', function (Blueprint $table) {
             $table->id();
-            $table->string('jobOccup');
-            $table->integer('profileId');
+            $table->DateTime('expired');
+            $table->string('ip');
+            $table->string('token');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('prf_selector');
+        Schema::dropIfExists('_user_token');
     }
 };

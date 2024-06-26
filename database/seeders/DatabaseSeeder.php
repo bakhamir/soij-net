@@ -17,9 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory()->count(50)->create();
-        // Profile::factory()->count(10)->create();
-        // Subscription::factory()->count(10)->create();
-        Like::factory()->count(10)->create();
+        $this->call([
+            UserSeeder::class,
+            SubcsriptionSeeder::class,
+            ProfileSeeder::class,
+            LikeSeeder::class,
+        ]);
     }
 }

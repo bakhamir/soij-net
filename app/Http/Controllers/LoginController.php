@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\UserToken;
 
 class LoginController extends Controller
 {
@@ -42,8 +42,15 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerateToken();
-            // return redirect()->intended('dashboard');
-            return   dd("ok");
+            $token = str_random(30);
+
+            $userToken = new UserToken;
+            $userToken->expired = Carbon::now()->addDays(6);
+            $userToken->ip = $request->ip();
+            $userToken->token = $token;
+            $userToken->save();
+    
+            return $token;
         }
 
         return back()->withErrors([
