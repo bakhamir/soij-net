@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('message_status', function (Blueprint $table) {
+        Schema::create('chats', function (Blueprint $table) {
             $table->id();
-            $table->integer('messageId');
-            $table->integer('userId');
-            $table->boolean('isRead')->default(false);
+            $table->foreignId("user_id")->references("id")->on("users");
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('message_status');
+        Schema::dropIfExists('chats');
     }
 };
