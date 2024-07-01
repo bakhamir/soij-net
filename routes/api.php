@@ -36,5 +36,9 @@ Route::get('/profile/{id}',[ProfileController::class,'read']);
 Route::post('profileUpd/{id}',[ProfileController::class,'update']);
 Route::post('profileDel/{id}',[ProfileController::class,'delete']);
 
+Route::post("SendMessage",[\App\Http\Controllers\ChatController::class,"SendMessage"]);
+Route::get("load",[\App\Http\Controllers\MessagesController::class,"LoadThePreviousMessages"]);
+
+
 // Route::post('/Loginn',[LoginController::class,'log']);
 

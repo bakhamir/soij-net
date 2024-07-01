@@ -9,7 +9,7 @@ class ChatController extends Controller
     private Chat $chat;
     public function SendMessage(SendMessageRequest $request){
         $OtherUserId = User:where("name",$request->to)->first->id;
-        
+
         if ($collection == false) {
             $chat = Chat::create([
                 'user_id' => auth()->user()->id
@@ -37,3 +37,4 @@ class ChatController extends Controller
         return false;
     }
 }
+// TODO: understand how to fetch user who is logged in
