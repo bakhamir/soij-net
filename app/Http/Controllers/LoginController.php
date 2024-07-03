@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserToken;
-
+use Illuminate\Support\Str;
 class LoginController extends Controller
 {
     public function login(Request $request): RedirectResponse

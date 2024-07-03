@@ -29,4 +29,7 @@ class ProfileController extends Controller
      return response()->json($profile,201);
 
     }
+    public function uploadImage(){
+        
+    }
 }
