@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserToken;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 class LoginController extends Controller
 {
@@ -42,16 +43,13 @@ class LoginController extends Controller
             
         ]);
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerateToken();
-            $token = str_random(30);
+            // $request->session()->regenerateToken();
+            // $token = Redis::get('user' . $user->id);
 
-            $userToken = new UserToken;
-            $userToken->expired = Carbon::now()->addDays(6);
-            $userToken->ip = $request->ip();
-            $userToken->token = $token;
-            $userToken->save();
-    
-            return $token;
+
+            // return $token;
+            return true;
+            //TODO fetch token from redis DB
         }
 
         return back()->withErrors([

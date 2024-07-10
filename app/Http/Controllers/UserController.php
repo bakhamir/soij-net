@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Image;
+use Illuminate\Support\Facades\Redis;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Storage;
@@ -28,10 +31,12 @@ class UserController extends Controller
      */
     public function create(UserRequest $request)
     {
-        $date = date('Y-m-d H:i:s');
-        $path = ;
-        Storage::disk('avatar')->put(Str::random(6) .  '.png', $request->input('img'));
 
+
+        $redis = Redis::connection();
+       Storage::disk('avatar')->put('', $request->img);
+        $token = Str::random(30);
+  
         // mb_convert_encoding($contents['name'], 'UTF-8', 'UTF-8');
 
         $user = User::create([
@@ -42,11 +47,20 @@ class UserController extends Controller
             'profileId' => $request->input('profileId'),
             'subPlanId' => $request->input('subPlanId'),
             'sex' => $request->input('sex'),
-            'age' => $request->input('age'),
-            'img' => $request->input('img')
+            'age' => $request->input('age')
+            // 'img' => $request->input('img')
             // 'img' => $request->input('img_path')
         ]);
-        return response()->json($user,201);
+        $image = Image::create([
+            'img_name' => $request->file('img')->getClientOriginalName(),
+            'img_type' => $request->file('img')->getClientOriginalExtension(),
+            'user_id' => $user->id
+        ]);
+      
+        Redis::set('user' . $user->id, $token);
+        $arr = array($user, $image);
+
+        return response()->json($arr ,201);
     }
 
     /**
