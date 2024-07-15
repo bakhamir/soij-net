@@ -44,7 +44,7 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             // $request->session()->regenerateToken();
-            $token = Redis::get('user' . User::where('email','like',$credentials[0]) -> first());
+            $token = Redis::get('laravel_database_user' . User::where('email','like',$credentials[0]) -> first()->id);
 
             // return $token;
             return $token;
