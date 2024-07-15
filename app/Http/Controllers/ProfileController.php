@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use Illuminate\Http\Request;
-
+use App\Models\Image;
 class ProfileController extends Controller
 {
     public function create(Request $request){
@@ -29,7 +29,14 @@ class ProfileController extends Controller
      return response()->json($profile,201);
 
     }
-    public function uploadImage(){
-        
+    public function uploadImage(Request $request){
+
+        Storage::disk('avatar')->put('', $request->img);
+
+        $image = Image::create([
+            'img_name' => $request->file('img')->getClientOriginalName(),
+            'img_type' => $request->file('img')->getClientOriginalExtension(),
+            'user_id' => $request->input('id')
+        ]);
     }
 }
