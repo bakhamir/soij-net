@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Carbon\Carbon;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -44,11 +44,10 @@ class LoginController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             // $request->session()->regenerateToken();
-            // $token = Redis::get('user' . $user->id);
-
+            $token = Redis::get('user' . User::where('email','like',$credentials[0]) -> first());
 
             // return $token;
-            return true;
+            return $token;
             //TODO fetch token from redis DB
         }
 
