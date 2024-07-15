@@ -18,7 +18,7 @@ class ProfileController extends Controller
         return response()->json($profile,200);
     }
     public function update(Request $request,int $id)
-    {
+    { 
         $profile = Profile::find($id);
         $profile->update($request->all());
         return response()->json($profile,201);

@@ -17,7 +17,7 @@ class LoginController extends Controller
     }
     
     // public function log(Request $request)
-    // {
+    // { 
     //     if ($request->isMethod('post')) {
          
     //       $email =$request('email');
@@ -42,7 +42,7 @@ class LoginController extends Controller
             'password' => ['required'],
             
         ]);
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials,$remember)) {
             // $request->session()->regenerateToken();
             $token = Redis::get('laravel_database_user' . User::where('email','like',$credentials[0]) -> first()->id);
 

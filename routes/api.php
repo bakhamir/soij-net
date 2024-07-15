@@ -20,14 +20,14 @@ use App\Http\Controllers\ProfileController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['authenticate']], function () {
     Route::post('/Register',[UserController::class,'create']);
     Route::post('/Login',[LoginController::class,'login']);
 });
 Route::post('/LikeUser',[LikeController::class,'LikeUser']);
 
 Route::post('/preference',[PreferenceController::class,'create']);
-Route::get('/preference/{id}',[PreferenceCpntroller::class,'read']);
+Route::get('/preference/{id}',[PreferenceController::class,'read']);
 Route::post('preferenceUpd/{id}',[PreferenceController::class,'update']);
 Route::post('preferenceDel/{id}',[PreferenceController::class,'delete']);
 
@@ -36,8 +36,6 @@ Route::get('/profile/{id}',[ProfileController::class,'read']);
 Route::post('profileUpd/{id}',[ProfileController::class,'update']);
 Route::post('profileDel/{id}',[ProfileController::class,'delete']);
 
-Route::post("SendMessage",[\App\Http\Controllers\ChatController::class,"SendMessage"]);
-Route::get("load",[\App\Http\Controllers\MessagesController::class,"LoadThePreviousMessages"]);
 
 
 // Route::post('/Loginn',[LoginController::class,'log']);
