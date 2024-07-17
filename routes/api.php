@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\IsAuthenticated;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,11 +22,11 @@ use App\Http\Controllers\ProfileController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['middleware' => ['authenticate']], function () {
+
     Route::post('/Register',[UserController::class,'create']);
     Route::post('/Login',[LoginController::class,'login']);
-});
-Route::post('/LikeUser',[LikeController::class,'LikeUser']);
+
+Route::post('/LikeUser',[LikeController::class,'LikeUser'])->middleware('authenticate');
 
 Route::post('/preference',[PreferenceController::class,'create']);
 Route::get('/preference/{id}',[PreferenceController::class,'read']);

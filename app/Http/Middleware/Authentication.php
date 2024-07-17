@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,13 @@ class Authentication
      */
     public function handle(Request $request, Closure $next)
     {
-        dd($request->input('email'));
+         
+
+
+
+
+
+        // if ($request->header('token'))
+
     }
 }

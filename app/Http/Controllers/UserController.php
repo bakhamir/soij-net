@@ -5,12 +5,12 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Image;
 use Illuminate\Support\Facades\Redis;
-
+use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
+use App\Services\AuthService;
 
 class UserController extends Controller
 {
@@ -35,10 +35,6 @@ class UserController extends Controller
 
         $redis = Redis::connection();
        Storage::disk('avatar')->put('', $request->img);
-        $token = Str::random(30);
-  
-        // mb_convert_encoding($contents['name'], 'UTF-8', 'UTF-8');
-
         $user = User::create([
             'email' => $request->input('email'),
             'userName' => $request->input('userName'),
@@ -56,8 +52,7 @@ class UserController extends Controller
             'img_type' => $request->file('img')->getClientOriginalExtension(),
             'user_id' => $user->id
         ]);
-      
-        Redis::set('user' . $user->id, $token);
+        AuthService::generateToken($request->input('email'));
         $arr = array($user, $image);
 
         return response()->json($arr ,201);
