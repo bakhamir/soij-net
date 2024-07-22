@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use PDO;
 
 class Authentication
 {
@@ -17,13 +19,13 @@ class Authentication
      */
     public function handle(Request $request, Closure $next)
     {
-         
+        if ($request->header('token')){
 
-
-
-
-
-        // if ($request->header('token'))
-
+            $token = $request->header('token');
+            $values = Redis::command('lrange', [$token, 0, -1]);
+            // dd('laravel_database_' . $token);
+            // dd(Redis::lrange('laravel_database_' . $token,0,-1));
+            dd($values);
+        }
     }
 }

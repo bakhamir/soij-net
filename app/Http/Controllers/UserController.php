@@ -11,6 +11,8 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Services\AuthService;
+use App\Services\ImageService;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
@@ -33,26 +35,25 @@ class UserController extends Controller
     {
 
 
-        $redis = Redis::connection();
-       Storage::disk('avatar')->put('', $request->img);
-        $user = User::create([
-            'email' => $request->input('email'),
-            'userName' => $request->input('userName'),
-            'password' => Hash::make($request->input('password')),
-            'phoneNum' => $request->input('phoneNum'),
-            'profileId' => $request->input('profileId'),
-            'subPlanId' => $request->input('subPlanId'),
-            'sex' => $request->input('sex'),
-            'age' => $request->input('age')
-            // 'img' => $request->input('img')
-            // 'img' => $request->input('img_path')
-        ]);
-        $image = Image::create([
-            'img_name' => $request->file('img')->getClientOriginalName(),
-            'img_type' => $request->file('img')->getClientOriginalExtension(),
-            'user_id' => $user->id
-        ]);
+        ImageService::PutImage($request->img);
+
+        $user = UserService::CreateUser(
+        $request->input('email'),
+        $request->input('userName'),Hash::make($request->input('password')),
+        $request->input('phoneNum'),
+        $request->input('profileId'),
+        $request->input('subPlanId'),
+        $request->input('sex'),
+        $request->input('age') 
+        );
+        
+        $image = ImageService::CreateImage(
+        $request->file('img')->getClientOriginalName(),
+        $request->file('img')->getClientOriginalExtension(),
+        $user->id);
+
         AuthService::generateToken($request->input('email'));
+        
         $arr = array($user, $image);
 
         return response()->json($arr ,201);
