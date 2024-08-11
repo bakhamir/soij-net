@@ -25,8 +25,7 @@ class UserFactory extends Factory
             'profileId' =>1,
             'subPlanId' =>1,
             'sex' => 'm',
-            'age' => 33,
-            'img' => 'C:\\Users\\БахытжановА\\Downloads\\1.jpg'
+            'age' => 33
         ];
     }
     

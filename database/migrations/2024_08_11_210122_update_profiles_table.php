@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chats', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("user_id")->references("id")->on("users");
-            $table->timestamps();
+         Schema::table('profiles', function (Blueprint $table) {
+            $table->string('sex')->nullable(); // Удалить столбец
+            $table->integer('age')->default(0); // Добавить новый столбец
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chats');
+        //
     }
 };

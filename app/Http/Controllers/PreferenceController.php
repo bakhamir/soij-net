@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use app\Models\Preference;
+use App\Models\Preference;
 use Illuminate\Http\Request;
 
 class PreferenceController extends BaseController

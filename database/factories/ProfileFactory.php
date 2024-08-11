@@ -20,8 +20,10 @@ class ProfileFactory extends Factory
         return [
             'fullName' => fake()->name(),
             'shortDesc' => fake()->title(),
-            'categoriesId' =>  1, // password
-            'about' => 'omeganull'
+            'user_id' =>  1, // password
+            'about' => 'omeganull',
+            'sex' => 'm',
+            'age' => 33
         ];
     }
 }

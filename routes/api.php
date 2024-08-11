@@ -34,10 +34,10 @@ Route::post('preferenceUpd/{id}',[PreferenceController::class,'update']);
 Route::post('preferenceDel/{id}',[PreferenceController::class,'delete']);
 
 Route::post('/profile',[ProfileController::class,'create']);
+Route::post('/profilesGet',[ProfileController::class, 'getPreferredProfiles'])->middleware('authenticate');
 Route::get('/profile/{id}',[ProfileController::class,'read']);
 Route::post('profileUpd/{id}',[ProfileController::class,'update']);
 Route::post('profileDel/{id}',[ProfileController::class,'delete']);
-
 
 
 // Route::post('/Loginn',[LoginController::class,'log']);

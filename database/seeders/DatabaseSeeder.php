@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             SubscriptionSeeder::class,
             ProfileSeeder::class,
             LikeSeeder::class,
+        
         ]);
     }
 }

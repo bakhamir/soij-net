@@ -5,10 +5,30 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Models\Image;
+use App\Models\Preference;
+use App\Models\User;
+
 class ProfileController extends BaseController
 {
 
     protected $model = Profile::class;
+    public function getPreferredProfiles(Request $request){
+        
+        $user = $request->user;
+        $userProfile = Profile::where('user_id','=',$user->id)->first();
+        $userPref = Preference::where('profileId','=',$userProfile->id)->first();
+        //dd($userPref);
+        $minAge = $userPref->ageRangeMin;$maxAge = $userPref->ageRangeMax;
+        
+        $profiles = Profile::where('age','>',$minAge)
+        ->where('age','<',$maxAge)->where('sex','like',$userPref->sex)
+        ->take(10)->get();
+
+
+
+        // dd($profile);
+        return response()->json($profiles,200);
+    }
     // public function create(Request $request){
 
     //     $profile = Profile::create($request->all());
