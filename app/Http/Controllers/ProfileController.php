@@ -17,16 +17,11 @@ class ProfileController extends BaseController
         $user = $request->user;
         $userProfile = Profile::where('user_id','=',$user->id)->first();
         $userPref = Preference::where('profileId','=',$userProfile->id)->first();
-        //dd($userPref);
         $minAge = $userPref->ageRangeMin;$maxAge = $userPref->ageRangeMax;
-        
         $profiles = Profile::where('age','>',$minAge)
         ->where('age','<',$maxAge)->where('sex','like',$userPref->sex)
         ->take(10)->get();
 
-
-
-        // dd($profile);
         return response()->json($profiles,200);
     }
     // public function create(Request $request){
