@@ -13,14 +13,11 @@ class LoginService
 {
     public static function login($credentials)
     {
+        // dd($credentials);
         if (Auth::attempt($credentials)) {
-
             $token = AuthService::generateToken($credentials['email']);
-            return response()->json(['token' => $token],201);     
+            return $token;
         }
-
-        return back()->withErrors([
-             'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return null;
     }
 }

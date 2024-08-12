@@ -30,6 +30,7 @@ class Authentication
                 $request->merge(["user" => $user]);
                 return $next($request);
             }
+            
             return "error";
             // dd('laravel_database_' . $token);
             // dd(Redis::lrange('laravel_database_' . $token,0,-1));

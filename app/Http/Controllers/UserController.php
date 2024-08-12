@@ -52,13 +52,13 @@ class UserController extends Controller
         $request->file('img')->getClientOriginalExtension(),
         $user->id);
 
-        AuthService::generateToken($request->input('email'));
+        $token = AuthService::generateToken($request->input('email'));
         
-        $arr = array($user, $image);
+        // $arr = array($user, $image,$token);
 
-        return response()->json($arr ,201);
+        return response()->json(['token'=> $token]  ,201);
     }
-
+   
     /**
      * Store a newly created resource in storage.
      *

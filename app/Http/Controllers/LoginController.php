@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UserToken;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
-use app\Services\LoginService;
+use App\Services\LoginService;
 class LoginController extends Controller 
 {
     public function login(Request $request) 
@@ -19,6 +19,9 @@ class LoginController extends Controller
             'email' => ['required'],
             'password' => ['required'],
         ]);
-       LoginService::login($credentials);
+        
+       $token = LoginService::login($credentials);
+       dd($token);
+       response()->json(['token' => $token],201);     
     }
 }
