@@ -39,7 +39,8 @@ class UserController extends Controller
 
         $user = UserService::CreateUser(
         $request->input('email'),
-        $request->input('userName'),Hash::make($request->input('password')),
+        $request->input('userName'),
+        $request->input('password'),
         $request->input('phoneNum'),
         $request->input('profileId'),
         $request->input('subPlanId'),

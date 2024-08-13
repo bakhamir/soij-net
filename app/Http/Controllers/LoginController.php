@@ -19,9 +19,10 @@ class LoginController extends Controller
             'email' => ['required'],
             'password' => ['required'],
         ]);
-        
+
        $token = LoginService::login($credentials);
-       dd($token);
-       response()->json(['token' => $token],201);     
+       //dd(;ещ);
+    //    dd($token);
+       return response()->json(['token' => $token],201);     
     }
 }
