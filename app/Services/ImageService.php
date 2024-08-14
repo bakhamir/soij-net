@@ -14,11 +14,12 @@ class ImageService
 {
     public static function PutImage($image)
     {
-        Storage::disk('avatar')->put('', $image);
+       return  Storage::disk('avatar')->put('', $image);
+        
     }
     public static function CreateImage($img_name,$img_type,$user_id){
         $image = Image::create([
-            'img_name' => $img_name,
+            'unique_name' => $img_name,
             'img_type' => $img_type,
             'user_id' => $user_id
         ]);

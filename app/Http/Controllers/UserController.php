@@ -35,7 +35,7 @@ class UserController extends Controller
     {
 
 
-        ImageService::PutImage($request->img);
+        $avatar=  ImageService::PutImage($request->img);
 
         $user = UserService::CreateUser(
         $request->input('email'),
@@ -49,7 +49,7 @@ class UserController extends Controller
         );
         
         $image = ImageService::CreateImage(
-        $request->file('img')->getClientOriginalName(),
+        $avatar,
         $request->file('img')->getClientOriginalExtension(),
         $user->id);
 
