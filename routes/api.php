@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LikeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -6,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Middleware\IsAuthenticated;
 
 /*
@@ -38,7 +41,7 @@ Route::post('/profilesGet',[ProfileController::class, 'getPreferredProfiles'])->
 Route::get('/profile/{id}',[ProfileController::class,'read']);
 Route::post('profileUpd/{id}',[ProfileController::class,'update']);
 Route::post('profileDel/{id}',[ProfileController::class,'delete']);
-
+Route::get('getImage',[ImageController::class,'getImage'])->middleware('authenticate');
 
 // Route::post('/Loginn',[LoginController::class,'log']);
 

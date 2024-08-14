@@ -25,4 +25,9 @@ class ImageService
         ]);
         return $image;
     }
+    public static function getImage($user)
+    {  
+        $image_name = Image::where('user_id','=',$user->id);
+        return $image_name;
+    }
 }
