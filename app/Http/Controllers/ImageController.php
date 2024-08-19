@@ -15,6 +15,7 @@ class ImageController extends Controller
     {
         $user = $request->user;
         $img_name = ImageService::getImage($user);
-        return response()->json(['image' => $img_name],200);
+        $imageUrl = asset('avatars/' . $img_name);
+        return response()->json(['image' => $imageUrl],200);
     }
 }

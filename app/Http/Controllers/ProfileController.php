@@ -7,23 +7,42 @@ use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Models\Preference;
 use App\Models\User;
-
+use App\Services\ImageService;
 class ProfileController extends BaseController
 {
 
     protected $model = Profile::class;
-    public function getPreferredProfiles(Request $request){
-        
+    public function getPreferredProfiles(Request $request)
+    {
         $user = $request->user;
-        $userProfile = Profile::where('user_id','=',$user->id)->first();
-        $userPref = Preference::where('profileId','=',$userProfile->id)->first();
-        $minAge = $userPref->ageRangeMin;$maxAge = $userPref->ageRangeMax;
-        $profiles = Profile::where('age','>',$minAge)
-        ->where('age','<',$maxAge)->where('sex','like',$userPref->sex)
-        ->take(10)->get();
 
-        return response()->json($profiles,200);
+        $userProfile = Profile::where('user_id', '=', $user->id)->first();
+        $userPref = Preference::where('profileId', '=', $userProfile->id)->first();
+        
+        $minAge = $userPref->ageRangeMin;
+        $maxAge = $userPref->ageRangeMax;
+    
+        $profiles = Profile::where('age', '>', $minAge)
+            ->where('age', '<', $maxAge)
+            ->where('sex', 'like', $userPref->sex)
+            ->take(500)
+            ->get();
+    
+        $result = [];
+    
+        foreach ($profiles as $profile) {
+            $imgUser = User::where('id','=',$profile->user_id)->first();
+            $avatar = ImageService::getImage($imgUser);
+            $imageUrl = asset('avatars/' . $avatar);
+            $result[] = [
+                'profile' => $profile,
+                'avatar' => $imageUrl,
+            ];
+        }
+    
+        return response()->json($result, 200);
     }
+    
     // public function create(Request $request){
 
     //     $profile = Profile::create($request->all());

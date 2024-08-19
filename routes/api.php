@@ -29,12 +29,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::post('/register',[UserController::class,'create']);
     Route::post('/login',[LoginController::class,'login']);
 
-Route::post('/LikeUser',[LikeController::class,'LikeUser'])->middleware('authenticate');
+Route::post('/LikeUser',[LikeController::class,'likeUser'])->middleware('authenticate');
 
 Route::post('/preference',[PreferenceController::class,'create']);
 Route::get('/preference/{id}',[PreferenceController::class,'read']);
 Route::post('preferenceUpd/{id}',[PreferenceController::class,'update']);
 Route::post('preferenceDel/{id}',[PreferenceController::class,'delete']);
+
+Route::get('/users/{id}',[User::class,'read']);
 
 Route::post('/profile',[ProfileController::class,'create']);
 Route::post('/profilesGet',[ProfileController::class, 'getPreferredProfiles'])->middleware('authenticate');
@@ -42,6 +44,7 @@ Route::get('/profile/{id}',[ProfileController::class,'read']);
 Route::post('profileUpd/{id}',[ProfileController::class,'update']);
 Route::post('profileDel/{id}',[ProfileController::class,'delete']);
 Route::get('getImage',[ImageController::class,'getImage'])->middleware('authenticate');
+Route::post('/checkMatch', [LikeController::class, 'checkMatch'])->middleware('authenticate');
 
 // Route::post('/Loginn',[LoginController::class,'log']);
 

@@ -12,17 +12,14 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public static function CreateUser($email,$userName,$password,$phoneNum,$profileId,$subPlanId,$sex,$age)
+    public static function CreateUser($email,$userName,$password,$profileId,$subPlanId)
     {
         $user = User::create([
             'email' => $email,
             'userName' => $userName,
             'password' => Hash::make($password),
-            'phoneNum' => $phoneNum,
             'profileId' => $profileId,
             'subPlanId' => $subPlanId,
-            'sex' => $sex,
-            'age' => $age
             // 'img' => $request->input('img')
             // 'img' => $request->input('img_path')
         ]);

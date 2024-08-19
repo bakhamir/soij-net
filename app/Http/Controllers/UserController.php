@@ -41,11 +41,8 @@ class UserController extends Controller
         $request->input('email'),
         $request->input('userName'),
         $request->input('password'),
-        $request->input('phoneNum'),
         $request->input('profileId'),
-        $request->input('subPlanId'),
-        $request->input('sex'),
-        $request->input('age') 
+        $request->input('subPlanId')
         );
         
         $image = ImageService::CreateImage(
@@ -57,7 +54,7 @@ class UserController extends Controller
         
         // $arr = array($user, $image,$token);
 
-        return response()->json(['token'=> $token]  ,201);
+        return response()->json(['token'=> $token,'user_id' => $user->id]  ,201);
     }
    
     /**

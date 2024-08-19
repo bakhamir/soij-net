@@ -21,11 +21,37 @@ class LikeController extends Controller
               'profileId' => $user->profileId,
               'subscriptionId' => $user->subPlanId,
               'userSentId' => $user->id,
-              'userGetId' => $request->input('ReceiveUserId')
+              'userGetId' => $request->input('userGetId')
          ]);
 
 
         return Response()->json($like,201);
         
     }
+
+    public function checkMatch(Request $request)
+ {
+    $user = $request->user; // текущий пользователь
+    $targetUserId = $request->input('targetUserId'); // ID целевого пользователя
+
+    // Проверяем, поставил ли текущий пользователь лайк целевому пользователю
+    $userLikedTarget = Like::where('userSentId', $user->id)
+        ->where('userGetId', $targetUserId)
+        ->exists();
+
+    // Проверяем, поставил ли целевой пользователь лайк текущему пользователю
+    $targetLikedUser = Like::where('userSentId', $targetUserId)
+        ->where('userGetId', $user->id)
+        ->exists();
+
+    // Если оба условия выполнены, это матч
+    if ($userLikedTarget && $targetLikedUser) {
+        return response()->json(['match' => true], 200);
+    } else {
+        return response()->json(['match' => false], 200);
+    }
+ }
+
+
+
 }

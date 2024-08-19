@@ -27,11 +27,8 @@ class UserRequest extends FormRequest
             'email'=> 'required|email|string|max:32',
             'userName' => 'required|string|max:32',
             'password' => 'required|min:8|string',
-            'phoneNum' => 'required|min:11|',
-            'profileId' => 'required|numeric',
-            'subPlanId' => 'required|numeric',
-            'sex' => 'required|string|max:8',
-            'age' => 'required|min:0|max:100|numeric'           
+            'profileId' => 'numeric',
+            'subPlanId' => 'numeric'         
         ];
     }
 }
