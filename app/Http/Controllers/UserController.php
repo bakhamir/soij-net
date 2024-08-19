@@ -31,6 +31,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function item(Request $request){
+        $user = $request->user;
+        return response()->json(['name' => $user->userName,'email' => $user->email]);
+    }
     public function create(UserRequest $request)
     {
 

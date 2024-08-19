@@ -13,10 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-         Schema::table('image', function (Blueprint $table) {
-             $table->string('unique_name')->nullable();
-             $table->dropColumn('img_name');
-         });
+        //
     }
 
     /**

@@ -25,6 +25,7 @@ class ProfileController extends BaseController
         $profiles = Profile::where('age', '>', $minAge)
             ->where('age', '<', $maxAge)
             ->where('sex', 'like', $userPref->sex)
+            ->where('id','!=',$userProfile->id)
             ->take(500)
             ->get();
     
@@ -38,6 +39,7 @@ class ProfileController extends BaseController
                 'profile' => $profile,
                 'avatar' => $imageUrl,
             ];
+            
         }
     
         return response()->json($result, 200);

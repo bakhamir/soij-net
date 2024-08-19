@@ -8,7 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PreferenceController;
 use App\Http\Controllers\ProfileController;
-
+use App\Models\User;
 use App\Http\Middleware\IsAuthenticated;
 
 /*
@@ -45,6 +45,8 @@ Route::post('profileUpd/{id}',[ProfileController::class,'update']);
 Route::post('profileDel/{id}',[ProfileController::class,'delete']);
 Route::get('getImage',[ImageController::class,'getImage'])->middleware('authenticate');
 Route::post('/checkMatch', [LikeController::class, 'checkMatch'])->middleware('authenticate');
+
+Route::get('/users/{id}',[UserController::class,'read']);
 
 // Route::post('/Loginn',[LoginController::class,'log']);
 
