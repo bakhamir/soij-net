@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Profile;
+use App\Models\Preference;
 use Illuminate\Support\Facades\Redis;
 use App\Http\Controllers\LoginController;
 use Illuminate\Http\Request;
@@ -25,16 +27,15 @@ class UserController extends Controller
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function item(Request $request){
         $user = $request->user;
-        return response()->json(['name' => $user->userName,'email' => $user->email]);
+        // dd($user);
+         $profile = Profile::where('user_id','=',$user->id)->first();
+        //  dd($profile);
+         $preference = Preference::where('profileId','=',$profile->id)->first();
+        return response() ->json(['name' => $user->userName,'profileId' => $profile->id,'preferenceId' => $preference->id,'userId' => $user->id]);
     }
+
     public function create(UserRequest $request)
     {
 

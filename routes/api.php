@@ -46,7 +46,7 @@ Route::post('profileDel/{id}',[ProfileController::class,'delete']);
 Route::get('getImage',[ImageController::class,'getImage'])->middleware('authenticate');
 Route::post('/checkMatch', [LikeController::class, 'checkMatch'])->middleware('authenticate');
 
-Route::get('/users/{id}',[UserController::class,'read']);
+Route::get('/user',[UserController::class,'item'])->middleware('authenticate');
 
 // Route::post('/Loginn',[LoginController::class,'log']);
 

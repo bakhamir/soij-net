@@ -16,6 +16,7 @@ class LoginService
         // dd($credentials);
         if (Auth::attempt($credentials)) {
             $token = AuthService::generateToken($credentials['email']);
+
             return $token;
         }
         return null;
