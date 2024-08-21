@@ -45,9 +45,7 @@ class UserController extends Controller
         $user = UserService::CreateUser(
         $request->input('email'),
         $request->input('userName'),
-        $request->input('password'),
-        $request->input('profileId'),
-        $request->input('subPlanId')
+        $request->input('password')
         );
         
         $image = ImageService::CreateImage(

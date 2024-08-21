@@ -19,7 +19,6 @@ class LikeController extends Controller
         
         $like = Like::create([
               'profileId' => $user->profileId,
-              'subscriptionId' => $user->subPlanId,
               'userSentId' => $user->id,
               'userGetId' => $request->input('userGetId')
          ]);

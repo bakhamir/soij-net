@@ -26,7 +26,6 @@ class ProfileController extends BaseController
             ->where('age', '<', $maxAge)
             ->where('sex', 'like', $userPref->sex)
             ->where('id','!=',$userProfile->id)
-            ->take(500)
             ->get();
     
         $result = [];

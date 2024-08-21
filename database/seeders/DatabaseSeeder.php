@@ -6,7 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Profile;
-use App\Models\Subscription;
+
 use App\Models\Like;
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             // UserSeeder::class,
-            // SubscriptionSeeder::class,
+     
             ProfileSeeder::class,
             // LikeSeeder::class,
         
