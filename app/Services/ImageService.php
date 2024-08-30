@@ -16,6 +16,20 @@ class ImageService
     {
        return  Storage::disk('avatar')->put('', $image);
         
+    }  
+     public static function PutPostImage($image)
+    {
+       return  Storage::disk('post')->put('', $image);
+        
+    }
+    public static function getPostImages($user)
+    {  
+        $image_name = Image::where('user_id',"=",$user->id);
+       
+        if(is_null($image_name)){
+            return 'soyj.jpg';
+        }
+        return $images->pluck('unique_name')->toArray();
     }
     public static function CreateImage($img_name,$img_type,$user_id){
         $image = Image::create([
